@@ -16,7 +16,7 @@ class OvercastTime
     secrets.puts("overcast_user_name: " + email)
     secrets.puts("overcast_password: " + password)
     secrets.close
-    Figaro.application = Figaro::Application.new(environment: "production", path: "application.yml")
+    Figaro.application = Figaro::Application.new(environment: "production", path: "lib/application.yml")
     Figaro.load
 
     agent = Mechanize.new
@@ -49,8 +49,6 @@ class OvercastTime
         total_seconds += seconds
       end
     end
-
-    puts "Seconds: " + total_seconds.to_s
 
     mm, ss = total_seconds.divmod(60)
     hh, mm = mm.divmod(60)
