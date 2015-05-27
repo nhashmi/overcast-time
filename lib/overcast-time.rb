@@ -11,6 +11,7 @@ class OvercastTime
     email = gets.chomp
     print "Please enter your Overcast.fm password: "
     password = STDIN.noecho(&:gets).chomp
+    Dir.mkdir 'lib'
     fname = "lib/application.yml"
     secrets = File.open(fname, "w")
     secrets.puts("overcast_user_name: " + email)
@@ -27,7 +28,7 @@ class OvercastTime
 
     login_form = login_page.forms[0]
 
-    puts ENV['overcast_user_name']
+    puts "Fetching data from Overcast.fm"
 
     login_form.email = ENV['overcast_user_name']
     login_form.password = ENV['overcast_password']
@@ -56,6 +57,7 @@ class OvercastTime
     puts "You have %d hours, %d minutes, and %d seconds of unheard podcasts remaining." % [hh, mm, ss]
 
     File.delete("lib/application.yml")
+    Dir.delete('lib')
 
     return total_seconds
 
